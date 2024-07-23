@@ -8,6 +8,7 @@ import Profile from './pages/Profile/Profile'
 import Cart from './components/Cart/Cart'
 import ProductDetails from './components/ProductDetails/ProductDetails'
 
+
 function App() {
   const [count, setCount] = useState(0)
 
@@ -18,7 +19,7 @@ function App() {
       <Route path='/' Component={HomePage}   /> 
       <Route path='/login' Component={LoginPage}   /> 
       <Route path='/signup' Component={SignupPage}   /> 
-      <Route path='/product/:id' Component={ProductDetails}   /> 
+      <Route path='/products/:id' Component={ProductDetails}   /> 
       <Route path='/cart' Component={Cart}   /> 
       <Route path='/profile' Component={Profile}   /> 
       

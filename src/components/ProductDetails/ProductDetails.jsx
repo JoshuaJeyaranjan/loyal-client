@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import AddToCart from '../AddToCart/AddToCart';
 import './ProductDetails.scss';
 
 const ProductDetails = () => {
@@ -10,12 +11,7 @@ const ProductDetails = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const token = sessionStorage.getItem('token'); // Get the token from session storage
-        const response = await axios.get(`http://localhost:3000/products/${id}`, {
-          headers: {
-            'Authorization': `Bearer ${token}` // Include the token in the headers
-          }
-        });
+        const response = await axios.get(`http://localhost:3000/products/${id}`);
         setProduct(response.data);
       } catch (error) {
         console.error('Error fetching product:', error);
@@ -34,6 +30,7 @@ const ProductDetails = () => {
       <p>{product.description}</p>
       <p>Price: ${product.regular_price}</p>
       {product.sale_price && <p>Sale Price: ${product.sale_price}</p>}
+      <AddToCart product={product} />
     </div>
   );
 };

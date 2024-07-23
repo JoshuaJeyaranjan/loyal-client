@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import ProductListItem from '../ProductListItem/ProductListItem';
-import './ProductList.scss';
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
@@ -9,13 +8,9 @@ const ProductList = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const token = sessionStorage.getItem('token'); // Get the token from session storage
-        const response = await axios.get('http://localhost:3000/products', {
-          headers: {
-            'Authorization': `Bearer ${token}` // Include the token in the headers
-          }
-        });
+        const response = await axios.get('http://localhost:3000/products');
         setProducts(response.data);
+      
       } catch (error) {
         console.error('Error fetching products:', error);
       }
