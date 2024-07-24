@@ -7,6 +7,9 @@ import SignupPage from './pages/SignupPage/SignupPage'
 import Profile from './pages/Profile/Profile'
 import Cart from './components/Cart/Cart'
 import ProductDetails from './components/ProductDetails/ProductDetails'
+import Checkout from './components/Checkout/Checkout'
+import Success from './components/Success/Success'
+import Cancel from './components/Cancel/Cancel'
 
 
 function App() {
@@ -17,6 +20,9 @@ function App() {
 
     <Routes>
       <Route path='/' Component={HomePage}   /> 
+      <Route path='/checkout' Component={Checkout}   /> 
+      <Route path='/success' Component={Success}   /> 
+      <Route path='/cancel' Component={Cancel}   /> 
       <Route path='/login' Component={LoginPage}   /> 
       <Route path='/signup' Component={SignupPage}   /> 
       <Route path='/products/:id' Component={ProductDetails}   /> 

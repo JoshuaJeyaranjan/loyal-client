@@ -1,7 +1,6 @@
 import React from 'react';
 import { useCart } from '../../CartContext'; // Adjust path as needed
 import './Cart.scss';
-import { Link } from 'react-router-dom';
 
 const Cart = () => {
   const { cart } = useCart();
@@ -23,7 +22,6 @@ const Cart = () => {
           ))}
         </ul>
       )}
-      <Link to='/checkout'> CHECKOUT </Link>
     </div>
   );
 };
