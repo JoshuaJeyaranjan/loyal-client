@@ -1,48 +1,77 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './LoginPage.scss';
-import axios from 'axios';
+import { useAuth } from '../../AuthContext';
 
-export default function LoginPage() {
-  const [error, setError] = useState("");
+function LoginPage() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const { login } = useAuth();
   const navigate = useNavigate();
-  const loginEndpoint = "http://localhost:3000/signup/login";
 
-  const handleSubmit = async (event) => {
+  const handleLogin = async (event) => {
     event.preventDefault();
-
     try {
-      const response = await axios.post(loginEndpoint, {
-        email: event.target.email.value,
-        password: event.target.password.value
+      const response = await fetch('http://localhost:3000/signup/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
       });
 
-      sessionStorage.setItem("token", response.data.token);
-      navigate('/');
-    } catch (error) {
-      if (error.response) {
-        setError(error.response.data);
+      const data = await response.json();
+
+      if (response.ok) {
+        login(data.token);
+
+        // Decode the JWT token using dynamic import
+        const { jwtDecode } = await import('jwt-decode');
+        const decodedToken = jwtDecode(data.token);
+
+        if (decodedToken.admin) {
+          navigate('/admin'); // Redirect to admin dashboard
+        } else {
+          navigate('/'); // Redirect to home page
+        }
       } else {
-        setError('Login failed. Please try again.');
+        setError('Login failed');
       }
+    } catch (error) {
+      console.error('Login failed:', error);
+      setError('Login failed');
     }
   };
 
   return (
-    <>
-      <div>LoginPage</div>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="email">
-          <input type="text" name="email" placeholder="Your email" />
-        </label>
-        <label htmlFor="password">
-          <input type="text" name="password" placeholder="Your password" />
-        </label>
-        <label htmlFor="submit">
-          <input type="submit" name="submit" />
-        </label>
+    <div>
+      <h2>Login</h2>
+      <form onSubmit={handleLogin}>
+        <div>
+          <label>Email:
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </label>
+        </div>
+        <div>
+          <label>Password:
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </label>
+        </div>
+        <button type="submit">Login</button>
+        {error && <p>{error}</p>}
       </form>
-      {error && <div className="error">{error}</div>}
-    </>
+    </div>
   );
 }
+
+export default LoginPage;
