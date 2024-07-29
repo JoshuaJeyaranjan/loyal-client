@@ -3,13 +3,28 @@ import axios from 'axios';
 
 const AddInventory = () => {
   const [name, setName] = useState('');
-  const [price, setPrice] = useState('');
-  const [quantity, setQuantity] = useState('');
+  const [description, setDescription] = useState('');
+  const [regularPrice, setRegularPrice] = useState('');
+  const [salePrice, setSalePrice] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await axios.post('/inventory', { name, price, quantity });
-    // Handle success/error
+    try {
+      const token = localStorage.getItem('authToken'); // Replace with actual token retrieval method
+      await axios.post(
+        'http://localhost:3000/admin/inventory',
+        { name, description, regularPrice, salePrice },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      // Handle success (e.g., reset form, show success message)
+    } catch (error) {
+      console.error('Error adding inventory item:', error);
+      // Handle error (e.g., show error message)
+    }
   };
 
   return (
@@ -19,12 +34,16 @@ const AddInventory = () => {
         <input type="text" value={name} onChange={(e) => setName(e.target.value)} required />
       </div>
       <div>
-        <label>Price</label>
-        <input type="number" value={price} onChange={(e) => setPrice(e.target.value)} required />
+        <label>Description</label>
+        <textarea value={description} onChange={(e) => setDescription(e.target.value)} required />
       </div>
       <div>
-        <label>Quantity</label>
-        <input type="number" value={quantity} onChange={(e) => setQuantity(e.target.value)} required />
+        <label>Regular Price</label>
+        <input type="number" value={regularPrice} onChange={(e) => setRegularPrice(e.target.value)} required />
+      </div>
+      <div>
+        <label>Sale Price</label>
+        <input type="number" value={salePrice} onChange={(e) => setSalePrice(e.target.value)} required />
       </div>
       <button type="submit">Add Item</button>
     </form>

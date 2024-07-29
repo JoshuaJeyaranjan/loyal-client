@@ -15,6 +15,7 @@ import EditInventory from './components/EditInventory/EditInventory';
 import UserList from './components/UserList/UserList';
 import { AuthProvider } from './AuthContext';
 import AdminRoute from './AdminRoute';
+import AdminInventoryList from './components/AdminInventoryList/AdminInventoryList';
 
 function App() {
   return (
@@ -33,8 +34,9 @@ function App() {
 
           {/* Admin Routes */}
           <Route path="/admin" element={<AdminRoute element={<AdminDashboard />} />} />
+          <Route path='/admin/edit-inventory' element={<AdminRoute element={<AdminInventoryList/>} />} />
           <Route path="/admin/add-inventory" element={<AdminRoute element={<AddInventory />} />} />
-          <Route path="/admin/edit-inventory" element={<AdminRoute element={<EditInventory />} />} />
+          <Route path="/admin/edit-inventory/:id" element={<AdminRoute element={<EditInventory />} />} />
           <Route path="/admin/users" element={<AdminRoute element={<UserList />} />} />
         </Routes>
       </BrowserRouter>
