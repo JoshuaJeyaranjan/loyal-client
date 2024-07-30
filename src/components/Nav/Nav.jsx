@@ -12,6 +12,7 @@ export default function Nav() {
                 <li><NavLink to='/login'>Login</NavLink>  </li>
                 <li><NavLink to='/signup'>Signup</NavLink>  </li>
                 <li><NavLink to='/admin'>Admin</NavLink>  </li>
+                <li><NavLink to='/contact'>Contact</NavLink>  </li>
             </ul>
         </nav>
     </header>

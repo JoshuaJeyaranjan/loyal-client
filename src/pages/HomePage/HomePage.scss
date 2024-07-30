@@ -1,0 +1,8 @@
+@use '../../styles/partials/variables.scss' as *;
+@use '../../styles/partials/mixins.scss' as *;
+
+.home{
+background: linear-gradient(to bottom, $primary-blue, $primary-purple);
+height: 100vh;
+overflow: auto;
+}

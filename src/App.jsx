@@ -16,6 +16,7 @@ import UserList from './components/UserList/UserList';
 import { AuthProvider } from './AuthContext';
 import AdminRoute from './AdminRoute';
 import AdminInventoryList from './components/AdminInventoryList/AdminInventoryList';
+import ContactPage from './pages/ContactPage/ContactPage';
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
           <Route path="/products/:id" element={<ProductDetails />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/contact" element={<ContactPage />} />
 
           {/* Admin Routes */}
           <Route path="/admin" element={<AdminRoute element={<AdminDashboard />} />} />
