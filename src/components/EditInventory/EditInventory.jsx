@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const EditInventory = () => {
-  const {id} = useParams();
+  const { id } = useParams();
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -11,46 +11,53 @@ const EditInventory = () => {
     description: '',
     regularPrice: '',
     salePrice: '',
-  })
+    bestseller: false
+  });
 
-  useEffect (() => {
+  useEffect(() => {
     const fetchItem = async () => {
-        try {
-            const token = localStorage.getItem('authToken')
-            const response = await axios.get(`http://localhost:3000/products/${id}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            })
-            const {name, description, regular_price, sale_price} = response.data
-            setFormData({ name, description, regularPrice: regular_price, salePrice: sale_price })
-            
-        } catch (error) {
-            console.error('Error fetching item:', error)
-        }
-    }
+      try {
+        const token = localStorage.getItem('authToken');
+        const response = await axios.get(`http://localhost:3000/products/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        const { name, description, regular_price, sale_price, bestseller } = response.data;
+        setFormData({
+          name,
+          description,
+          regularPrice: regular_price,
+          salePrice: sale_price,
+          bestseller
+        });
+      } catch (error) {
+        console.error('Error fetching item:', error);
+      }
+    };
     fetchItem();
-  }, [id])
+  }, [id]);
 
   const handleChange = (e) => {
-    const {name, value} = e.target;
-    setFormData({...formData, [name]: value})
-  }
-
+    const { name, value, type, checked } = e.target;
+    setFormData({
+      ...formData,
+      [name]: type === 'checkbox' ? checked : value
+    });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-        const token = localStorage.getItem('authToken')
-        await axios.put(`http://localhost:3000/admin/inventory/${id}`, formData, {
-            headers: {
-                Authorization: `Bearer: ${token}`
-            }
-        })
-        navigate('/admin')
-        
+      const token = localStorage.getItem('authToken');
+      await axios.put(`http://localhost:3000/admin/inventory/${id}`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      navigate('/admin');
     } catch (error) {
-        console.error('Error updating Item', error)
+      console.error('Error updating Item', error);
     }
     // Handle success/error
   };
@@ -58,22 +65,26 @@ const EditInventory = () => {
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        <label htmlFor=""> Name  </label>
-        <input type="text" name='name' value={formData.name} onChange={handleChange} required />
+        <label htmlFor="name">Name</label>
+        <input type="text" name="name" value={formData.name} onChange={handleChange} required />
       </div>
       <div>
-        <label htmlFor=""> Description </label>
-        <input type="text" name='description' value={formData.description} onChange={handleChange} required />
+        <label htmlFor="description">Description</label>
+        <input type="text" name="description" value={formData.description} onChange={handleChange} required />
       </div>
       <div>
-        <label htmlFor=""> Regular Price </label>
-        <input type="number" name='regularPrice' value={formData.regularPrice} onChange={handleChange} required />
+        <label htmlFor="regularPrice">Regular Price</label>
+        <input type="number" name="regularPrice" value={formData.regularPrice} onChange={handleChange} required />
       </div>
       <div>
-        <label htmlFor=""> Sale Price </label>
-        <input type="number" name='salePrice' value={formData.salePrice} onChange={handleChange} required />
+        <label htmlFor="salePrice">Sale Price</label>
+        <input type="number" name="salePrice" value={formData.salePrice} onChange={handleChange} required />
       </div>
-      <button type='submit'> Update Item </button>
+      <div>
+        <label htmlFor="bestseller">Bestseller</label>
+        <input type="checkbox" name="bestseller" checked={formData.bestseller} onChange={handleChange} />
+      </div>
+      <button type="submit">Update Item</button>
     </form>
   );
 };

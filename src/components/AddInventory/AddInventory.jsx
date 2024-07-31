@@ -6,6 +6,7 @@ const AddInventory = () => {
   const [description, setDescription] = useState('');
   const [regularPrice, setRegularPrice] = useState('');
   const [salePrice, setSalePrice] = useState('');
+  const [bestseller, setBesteller] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -13,7 +14,7 @@ const AddInventory = () => {
       const token = localStorage.getItem('authToken'); // Replace with actual token retrieval method
       await axios.post(
         'http://localhost:3000/admin/inventory',
-        { name, description, regularPrice, salePrice },
+        { name, description, regularPrice, salePrice, bestseller },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -44,6 +45,10 @@ const AddInventory = () => {
       <div>
         <label>Sale Price</label>
         <input type="number" value={salePrice} onChange={(e) => setSalePrice(e.target.value)} required />
+      </div>
+      <div>
+        <label>Bestseller</label>
+        <input type="checkbox" value={bestseller} onChange={(e) => setBesteller(e.target.value)} required />
       </div>
       <button type="submit">Add Item</button>
     </form>

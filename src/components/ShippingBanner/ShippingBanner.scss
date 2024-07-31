@@ -1,0 +1,34 @@
+@use '../../styles/partials/variables.scss' as *;
+@use '../../styles/partials/mixins.scss' as *;
+
+
+.shipping-banner {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    box-sizing: border-box;
+    padding: 10px 0;
+    background-color: $primary-blue; /* Adjust as needed */
+    color: $primary-purple; /* Adjust as needed */
+  }
+  
+  .shipping-banner__container {
+    display: inline-block;
+    white-space: nowrap;
+    animation: scroll-text 10s linear infinite;
+  }
+  
+  .shipping-banner__text {
+    display: inline-block;
+    padding-right: 100%; /* Space between repetitions */
+  }
+  
+  @keyframes scroll-text {
+    0% {
+      transform: translateX(300%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+  
