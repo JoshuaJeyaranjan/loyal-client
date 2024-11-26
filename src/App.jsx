@@ -21,7 +21,7 @@ import CollectionPage from './pages/CollectionsPage/CollectionsPage';
 import CollectionsListPage from './pages/CollectionListPage/CollectionListPage';
 import CreateCollection from './components/CreateCollection/CreateCollection';
 import AssignProductsToCollection from './components/AssignProductsToCollection/AssignProductsToCollection';
-
+import EditCollection from './components/EditCollection/EditCollection';
 
 function App() {
   return (
@@ -44,6 +44,7 @@ function App() {
           {/* Admin Routes */}
           <Route path="/admin" element={<AdminRoute element={<AdminDashboard />} />} />
           <Route path='/admin/edit-inventory' element={<AdminRoute element={<AdminInventoryList/>} />} />
+          <Route path='/admin/edit-collection' element={<AdminRoute element={<EditCollection/>} />} />
           <Route path="/admin/add-inventory" element={<AdminRoute element={<AddInventory />} />} />
           <Route path="/admin/create-collection" element={<AdminRoute element={<CreateCollection />} />} />
           <Route path="/admin/assign-products" element={<AdminRoute element={<AssignProductsToCollection />} />} />
