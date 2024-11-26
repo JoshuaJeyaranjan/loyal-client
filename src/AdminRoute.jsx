@@ -1,18 +1,16 @@
-// AdminRoute.jsx
 import React from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { useAuth } from './AuthContext';
 
-const AdminRoute = ({ element, ...rest }) => {
+const AdminRoute = ({ element }) => {
   const { user } = useAuth();
-  const location = useLocation();
 
-  if (!user || !user.admin) {
-    // Redirect to home if not an admin
-    return <Navigate to="/" state={{ from: location }} />;
+  if (!user || !(user.admin === true || user.admin === 1)) {
+    // Redirect to home if not admin
+    return <Navigate to="/" />;
   }
 
-  // Render the element if admin
+  // Render the component for admins
   return element;
 };
 

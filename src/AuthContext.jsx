@@ -16,10 +16,13 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = (token) => {
+    console.log('Token during login:', token);
     localStorage.setItem('authToken', token);
     const decoded = decodeJwt(token);
+    console.log('Decoded user during login:', decoded); // Log decoded user
     setUser(decoded);
   };
+  
 
   const logout = () => {
     localStorage.removeItem('authToken');
