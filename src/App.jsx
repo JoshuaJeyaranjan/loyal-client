@@ -22,6 +22,8 @@ import CollectionsListPage from './pages/CollectionListPage/CollectionListPage';
 import CreateCollection from './components/CreateCollection/CreateCollection';
 import AssignProductsToCollection from './components/AssignProductsToCollection/AssignProductsToCollection';
 import EditCollection from './components/EditCollection/EditCollection';
+import UploadImages from './components/UploadImages/UploadImages';
+import AdminImages from './components/AdminImages/AdminImages';
 
 function App() {
   return (
@@ -42,7 +44,7 @@ function App() {
           <Route path='/collections/' element={<CollectionsListPage/>}/>
 
           {/* Admin Routes */}
-          <Route path="/admin" element={<AdminRoute element={<AdminDashboard />} />} />
+          <Route path="/admin/*" element={<AdminRoute element={<AdminDashboard />} />} />
           <Route path='/admin/edit-inventory' element={<AdminRoute element={<AdminInventoryList/>} />} />
           <Route path='/admin/edit-collection' element={<AdminRoute element={<EditCollection/>} />} />
           <Route path="/admin/add-inventory" element={<AdminRoute element={<AddInventory />} />} />
@@ -50,10 +52,13 @@ function App() {
           <Route path="/admin/assign-products" element={<AdminRoute element={<AssignProductsToCollection />} />} />
           <Route path="/admin/edit-inventory/:id" element={<AdminRoute element={<EditInventory />} />} />
           <Route path="/admin/users" element={<AdminRoute element={<UserList />} />} />
+          <Route path="/admin/upload-images" element={<AdminRoute element={<UploadImages />} />} />
+          <Route path="/admin/manage-images" element={<AdminRoute element={<AdminImages />} />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
-  );
-}
 
+  );
+
+  }
 export default App;

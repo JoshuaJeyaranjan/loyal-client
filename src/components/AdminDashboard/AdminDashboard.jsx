@@ -7,6 +7,8 @@ import CreateCollection from "../CreateCollection/CreateCollection";
 import AssignProductsToCollection from "../AssignProductsToCollection/AssignProductsToCollection";
 import AdminRoute from "../../AdminRoute"; // Ensure AdminRoute is correctly imported
 import EditCollection from "../EditCollection/EditCollection";
+import UploadImages from "../UploadImages/UploadImages";
+import AdminImages from "../AdminImages/AdminImages";
 
 const AdminDashboard = () => (
   <div>
@@ -33,6 +35,12 @@ const AdminDashboard = () => (
         <li>
           <Link to="/admin/edit-collection">Edit Collections</Link>
         </li>
+           <li>
+          <Link to="/admin/upload-images">Upload Images</Link>
+        </li>
+        <li>
+          <Link to="/admin/manage-images">Manage Images</Link>
+        </li>
       </ul>
     </nav>
     <Routes>
@@ -56,6 +64,14 @@ const AdminDashboard = () => (
       <Route
         path="assign-products"
         element={<AdminRoute element={<AssignProductsToCollection />} />}
+      />
+        <Route
+        path="upload-images"
+        element={<AdminRoute element={<UploadImages />} />}
+      />
+           <Route
+        path="manage-images"
+        element={<AdminRoute element={<AdminImages />} />}
       />
     </Routes>
   </div>
